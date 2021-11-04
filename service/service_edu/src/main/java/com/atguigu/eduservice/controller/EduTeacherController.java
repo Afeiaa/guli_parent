@@ -26,6 +26,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -96,7 +97,7 @@ public class EduTeacherController {
         long total = pageTeacher.getTotal();
         List<EduTeacher> records = pageTeacher.getRecords();
 
-        return R.ok().data("total", total).data("items", records);
+        return R.ok().data("total", total).data("rows", records);
     }
 
     // 5. 添加讲师接口
