@@ -22,6 +22,9 @@ public class OssController {
 //    @Headers("Content-Type:application/json; charset=utf-8")
     public R uploadOssFile(MultipartFile file) {
         String url = ossService.uploadFileAvatar(file);
+        if (url == null) {
+            return R.error().message("上传失败！").data("url", null);
+        }
         return R.ok().data("url", url);
     }
 
