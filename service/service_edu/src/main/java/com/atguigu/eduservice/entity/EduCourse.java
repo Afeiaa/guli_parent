@@ -5,37 +5,52 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class EduSubject implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class EduCourse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.ID_WORKER_STR)
+    @TableId(type = IdType.ID_WORKER_STR)
     private String id;
+
+    private String teacherId;
+
+    private String subjectId;
+
+    private String subjectParentId;
 
     private String title;
 
-    private String parentId;
+    private BigDecimal price;
 
-    private Integer sort;
+    private Integer lessonNum;
 
-    @ApiModelProperty(value = "创建时间")
+    private String cover;
+
+    private Long buyCount;
+
+    private Long viewCount;
+
+    private Long version;
+
+    private String status;
+
+    private Integer isDeleted;
+
     @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
-    @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
-
 
 }
