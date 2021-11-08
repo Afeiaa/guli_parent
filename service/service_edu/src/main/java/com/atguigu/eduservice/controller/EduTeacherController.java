@@ -36,11 +36,6 @@ public class EduTeacherController {
     // 1. 查询所有
     @GetMapping("/findall")
     public R findAll() {
-        try {
-            int age = 10/0;
-        } catch (Exception e) {
-            throw new GuliException(20001, "抛出了GuliException异常处理......");
-        }
         List<EduTeacher> list = eduTeacherService.list(null);
         return R.ok().data("items", list);
     }
