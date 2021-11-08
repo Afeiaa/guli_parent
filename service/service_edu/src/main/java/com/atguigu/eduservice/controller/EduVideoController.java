@@ -11,7 +11,4 @@ public class EduVideoController {
     @Autowired
     private EduVideoService eduVideoService;
 
-    @Autowired
-    private EduVideo eduVideo;
-
 }

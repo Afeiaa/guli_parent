@@ -19,14 +19,10 @@ public class EduCourseDescription implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(type = IdType.ID_WORKER_STR)
+    @TableId(type = IdType.INPUT)
     private String id;
 
-    private String courseId;
-
-    private String title;
-
-    private Integer sort;
+    private String description;
 
     @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
