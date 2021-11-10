@@ -20,4 +20,16 @@ public class EduCourseController {
         return R.ok().data("courseId", id);
     }
 
+    @GetMapping("/getCourseInfo/{courseId}")
+    public R getCourseInfo(@PathVariable("courseId") String courseId) {
+        CourseInfoVo courseInfoVo = eduCourseService.getCourseInfo(courseId);
+        return R.ok().data("curseInfo", courseInfoVo);
+    }
+
+    @PostMapping("/updateCourseInfo")
+    public R updateCourseInfo(@RequestBody CourseInfoVo courseInfoVo) {
+        String courseId = eduCourseService.updateCourseInfoById(courseInfoVo);
+        return R.ok().data("courseId", courseId);
+    }
+
 }
