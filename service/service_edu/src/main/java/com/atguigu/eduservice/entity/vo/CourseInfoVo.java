@@ -18,8 +18,7 @@ public class CourseInfoVo {
 
     private String subjectId;
 
-    // 如果测试接口报这个字段的错误，正常使用不需要传，但是数据库表中有，所以测试接口需要传
-//    private String subjectParentId;
+    private String subjectParentId;
 
     private String title;
 
