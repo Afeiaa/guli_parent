@@ -8,4 +8,10 @@ import java.util.List;
 
 public interface EduChapterService extends IService<EduChapter> {
     List<ChapterVo> getChapterVideoByCourseId(String courseId);
+
+    boolean updateChapterById(EduChapter eduChapter);
+
+    EduChapter getChapterById(String chapterId);
+
+    boolean deleteChapterById(String chapterId);
 }
