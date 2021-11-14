@@ -1,6 +1,8 @@
 package com.atguigu.eduservice.controller;
 
+import com.alibaba.excel.util.StringUtils;
 import com.atguigu.commonutils.R;
+import com.atguigu.eduservice.client.VodClient;
 import com.atguigu.eduservice.entity.EduVideo;
 import com.atguigu.eduservice.service.EduVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ public class EduVideoController {
 
     @Autowired
     private EduVideoService eduVideoService;
+
+    @Autowired
+    private VodClient vodClient;
 
     // 通过Id获取小节信息
     @GetMapping("/getVideoInfo/{videoId}")
@@ -34,6 +39,13 @@ public class EduVideoController {
     // 删除小节
     @DeleteMapping("/deleteVideo/{videoId}")
     public R deleteVideo(@PathVariable("videoId") String videoId) {
+        // 删除小节的视频
+        EduVideo eduVideo = eduVideoService.getById(videoId);
+        String videoSourceId = eduVideo.getVideoSourceId();
+        if (!StringUtils.isEmpty(videoSourceId)) {
+            vodClient.deleteAliyunVideo(videoSourceId);
+        }
+        // 删除小节
         boolean flag = eduVideoService.removeById(videoId);
         if (flag == false) {
             return R.error();

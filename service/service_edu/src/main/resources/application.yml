@@ -1,10 +1,16 @@
 # 服务端口
 server:
   port: 8001
-  # 服务名
+
 spring:
+  # 服务名
   application:
     name: service-edu
+  # nacos服务地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
   # 环境设置：dev、test、prod
   profiles:
     active: dev
