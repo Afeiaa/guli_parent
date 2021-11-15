@@ -5,8 +5,12 @@ import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.client.VodClient;
 import com.atguigu.eduservice.entity.EduVideo;
 import com.atguigu.eduservice.service.EduVideoService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/eduservice/video")
@@ -39,14 +43,18 @@ public class EduVideoController {
     // 删除小节
     @DeleteMapping("/deleteVideo/{videoId}")
     public R deleteVideo(@PathVariable("videoId") String videoId) {
-        // 删除小节的视频
-        EduVideo eduVideo = eduVideoService.getById(videoId);
-        String videoSourceId = eduVideo.getVideoSourceId();
-        if (!StringUtils.isEmpty(videoSourceId)) {
-            vodClient.deleteAliyunVideo(videoSourceId);
-        }
+        // 删除小节的视频,单个
+//        EduVideo eduVideo = eduVideoService.getById(videoId);
+//        String videoSourceId = eduVideo.getVideoSourceId();
+//        if (!StringUtils.isEmpty(videoSourceId)) {
+//            vodClient.deleteAliyunVideo(videoSourceId);
+//        }
+
         // 删除小节
-        boolean flag = eduVideoService.removeById(videoId);
+//        boolean flag = eduVideoService.removeById(videoId);
+
+        boolean flag = eduVideoService.deleteVideo(videoId);
+
         if (flag == false) {
             return R.error();
         }

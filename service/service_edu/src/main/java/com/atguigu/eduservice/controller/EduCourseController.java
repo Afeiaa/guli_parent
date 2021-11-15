@@ -1,6 +1,7 @@
 package com.atguigu.eduservice.controller;
 
 import com.atguigu.commonutils.R;
+import com.atguigu.eduservice.client.VodClient;
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.chapter.ChapterVo;
 import com.atguigu.eduservice.entity.chapter.VideoVo;
@@ -38,7 +39,7 @@ public class EduCourseController {
         for (ChapterVo chapterVo : chapterVideoList) {
             for (VideoVo videoVo : chapterVo.getChildren()) {
                 // 删除小节
-                eduVideoService.removeById(videoVo.getId());
+                eduVideoService.deleteVideo(videoVo.getId());
             }
             // 删除章节
             eduChapterService.deleteChapterById(chapterVo.getId());

@@ -4,4 +4,5 @@ import com.atguigu.eduservice.entity.EduVideo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 public interface EduVideoService extends IService<EduVideo> {
+    boolean deleteVideo(String videoId);
 }

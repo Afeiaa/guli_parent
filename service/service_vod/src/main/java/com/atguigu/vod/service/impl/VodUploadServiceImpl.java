@@ -5,17 +5,20 @@ import com.aliyun.vod.upload.impl.UploadVideoImpl;
 import com.aliyun.vod.upload.req.UploadStreamRequest;
 import com.aliyun.vod.upload.resp.UploadStreamResponse;
 import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
 import com.atguigu.servicebase.exceptionhandler.GuliException;
 import com.atguigu.vod.service.VodUploadService;
 import com.atguigu.vod.utils.ConstantPropertiesUtil;
 import com.atguigu.vod.utils.initVod;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Service
 public class VodUploadServiceImpl implements VodUploadService {
@@ -53,7 +56,7 @@ public class VodUploadServiceImpl implements VodUploadService {
         }
     }
 
-    // 删除视频
+    // 根据id删除阿里云上的单个视频
     @Override
     public boolean deleteAliyunVideo(String videoId) {
         try {
@@ -68,6 +71,27 @@ public class VodUploadServiceImpl implements VodUploadService {
             System.out.print("RequestId = " + response.getRequestId() + "\n");
             return true;
         } catch(Exception e) {
+            throw new GuliException(20001, "删除失败,请重试！");
+        }
+    }
+
+    // 根据id删除阿里云上的多个视频
+    @Override
+    public boolean deleteAliyunVideoBatch(List<String> videoSourceIdList) {
+        String videoId = StringUtils.join(videoSourceIdList.toArray(), ",");
+        // 初始化对象
+        try {
+            DefaultAcsClient client = initVod.initVodClient(ConstantPropertiesUtil.ACCESS_KEY_ID, ConstantPropertiesUtil.ACCESS_KEY_SECRET);
+            // request
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            // id
+            request.setVideoIds(videoId);
+            // response
+            DeleteVideoResponse response = client.getAcsResponse(request);
+            System.out.print("RequestId = " + response.getRequestId() + "\n");
+            return true;
+        } catch (ClientException e) {
+            e.printStackTrace();
             throw new GuliException(20001, "删除失败,请重试！");
         }
     }
