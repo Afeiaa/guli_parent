@@ -32,3 +32,16 @@ mybatis-plus:
 #配置mapper xml文件的路
   # mapper-locations: classpath:mapper/*.xml
   mapper-locations: classpath:com/atguigu/eduservice/mapper/xml/*.xml
+
+##开启熔断机制
+#feign:
+#  hystrix:
+#    enabled: true
+## 设置hystrix超时时间，默认1000ms
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 6000

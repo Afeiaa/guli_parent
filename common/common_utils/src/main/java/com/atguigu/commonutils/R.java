@@ -26,7 +26,7 @@ public class R {
     public static R error() {
         R r = new R();
         r.setSuccess(false);
-        r.setCode(ResultCode.SUCCESS);
+        r.setCode(ResultCode.ERROR);
         r.setMessage("失败");
         return r;
     }
