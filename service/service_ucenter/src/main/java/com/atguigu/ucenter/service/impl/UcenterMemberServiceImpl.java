@@ -59,21 +59,27 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         // 必填手机号和密码
         String mobile = registerVo.getMobile();
         String password = registerVo.getPassword();
-        String nickName = registerVo.getNickName();
-        String phoneCode = registerVo.getPhoneCode();
+        String nickName = registerVo.getNickname();
+        String phoneCode = registerVo.getCode();
         if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) || StringUtils.isEmpty(nickName)) {
             throw new GuliException(20001, "请输入手机号或密码！");
         }
         // 验证码
         // 先调用,后验证,  返回成功代表在redis中有值了,直接取
-        R r = msmClient.sendCode(mobile);
-        if(r.getCode() == 20001) {
-            throw new GuliException(20001, "验证码错误，发送错误！");
+        // R r = msmClient.sendCode(mobile);
+        // if(r.getCode() == 20001) {
+        //     throw new GuliException(20001, "验证码错误，发送错误！");
+        // }
+        String code = null;
+        try {
+            code = redisTemplate.opsForValue().get(mobile);      //  如果redis中没有该数据，会报空指针异常
+            if(!code.equals(phoneCode)) {
+                throw new GuliException(20001, "验证码错误，输入错误！");
+            }
+        } catch (NullPointerException e) {
+            throw new GuliException(20001, "请重新获取验证码！");
         }
-        String code = redisTemplate.opsForValue().get(mobile);
-        if(!code.equals(phoneCode)) {
-            throw new GuliException(20001, "验证码错误，输入错误！");
-        }
+
         // 手机号是否存在
         QueryWrapper<UcenterMember> wrapper = new QueryWrapper<>();
         wrapper.eq("mobile", mobile);

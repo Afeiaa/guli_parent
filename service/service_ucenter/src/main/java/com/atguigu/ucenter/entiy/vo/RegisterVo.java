@@ -12,7 +12,7 @@ public class RegisterVo {
 
     private String mobile;
     private String password;
-    private String nickName;
-    private String phoneCode;
+    private String nickname;
+    private String code;
 
 }

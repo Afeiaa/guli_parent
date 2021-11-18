@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/api/msm")
+@RequestMapping("/edumsm")
 @CrossOrigin //跨域
 public class MsmApiController {
 
@@ -28,7 +28,10 @@ public class MsmApiController {
     @GetMapping(value = "/send/{phone}")    // 数据库中存了手机的验证码，让他一直存在，然后生成的后台打印出来，然后去使用
     public R sendCode(@PathVariable("phone") String phone) {
         String code = redisTemplate.opsForValue().get(phone);
-        if(!StringUtils.isAllEmpty(code)) return R.ok().data("code", code);
+        if(!StringUtils.isAllEmpty(code)) {
+            System.out.println("######################################,验证码已存在于redis中：" + code);
+            return R.ok().data("code", code);
+        }
         code = RandomUtil.getFourBitRandom();
         System.out.println("######################################" + code);
         Map<String,Object> param = new HashMap<>();
