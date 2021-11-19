@@ -98,4 +98,12 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         int result = baseMapper.insert(ucenterMember);
         return result > 0;
     }
+
+    @Override
+    public UcenterMember getWxMember(String openId) {
+        QueryWrapper<UcenterMember> wrapper = new QueryWrapper<>();
+        wrapper.eq("openid", openId);
+        UcenterMember ucenterMember = baseMapper.selectOne(wrapper);
+        return ucenterMember;
+    }
 }

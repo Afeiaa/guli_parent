@@ -8,4 +8,6 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     String login(UcenterMember member);
 
     boolean register(RegisterVo registerVo);
+
+    UcenterMember getWxMember(String openId);
 }
