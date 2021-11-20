@@ -68,15 +68,19 @@ public class WxApiController {
                 String headimgurl = userMap.get("headimgurl");
 
                 // 存入数据库
-                member.setOpenid(openId);
-                member.setNickname(nickname);
-                member.setAvatar(headimgurl);
-                ucenterMemberService.save(member);
+                UcenterMember ucenterMember = new UcenterMember();
+                ucenterMember.setOpenid(openId);
+                ucenterMember.setNickname(nickname);
+                ucenterMember.setAvatar(headimgurl);
+                ucenterMemberService.save(ucenterMember);
+
+                // 根据id和nickname生成token，通过地址返回
+                String jwtToken = JwtUtils.getJwtToken(ucenterMember.getId(), ucenterMember.getNickname());
+                return "redirect:http://localhost:3000?token=" + jwtToken;
             }
 
             // 根据id和nickname生成token，通过地址返回
             String jwtToken = JwtUtils.getJwtToken(member.getId(), member.getNickname());
-
             return "redirect:http://localhost:3000?token=" + jwtToken;
         } catch (Exception e) {
             e.printStackTrace();
