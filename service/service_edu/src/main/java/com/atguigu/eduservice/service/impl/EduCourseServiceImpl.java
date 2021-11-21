@@ -188,5 +188,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         return hashMap;
     }
 
+    @Override
+    public CourseWebVo getCourseInfoOrder(String courseId) {
+        CourseWebVo courseIndexInfoById = baseMapper.getCourseIndexInfoById(courseId);
+        return courseIndexInfoById;
+    }
+
 
 }

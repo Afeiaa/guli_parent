@@ -1,4 +1,4 @@
-package com.atguigu.eduservice.entity.frontVo;
+package com.atguigu.commonutils.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

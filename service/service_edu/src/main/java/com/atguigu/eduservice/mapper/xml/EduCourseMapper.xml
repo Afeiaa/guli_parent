@@ -28,4 +28,6 @@
         WHERE ec.id = #{courseId}
     </select>
 
+
+
 </mapper>

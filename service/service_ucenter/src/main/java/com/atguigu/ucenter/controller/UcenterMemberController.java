@@ -3,9 +3,11 @@ package com.atguigu.ucenter.controller;
 
 import com.atguigu.commonutils.JwtUtils;
 import com.atguigu.commonutils.R;
+import com.atguigu.commonutils.vo.UserMemberVo;
 import com.atguigu.ucenter.entiy.UcenterMember;
 import com.atguigu.ucenter.entiy.vo.RegisterVo;
 import com.atguigu.ucenter.service.UcenterMemberService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +52,25 @@ public class UcenterMemberController {
             return R.error().message("获取用户信息失败，请重新登录！");
         }
         return R.ok().data("userInfo", member);
+    }
+
+    // 根据id获取ucenter
+    @GetMapping("/getUserById/{id}")
+    public R getUserById(@PathVariable("id") String id) {
+        UcenterMember user = ucenterMemberService.getById(id);
+        System.out.println("###################" + user.getNickname());
+        return R.ok().data("id", user.getId())
+                .data("nickname", user.getNickname())
+                .data("avatar", user.getAvatar());
+    }
+
+    // 根据id返回订单的个人信息
+    @GetMapping("/getUerInfoOrder/{userId}")
+    public UserMemberVo getUerInfoOrder(@PathVariable("userId") String userId) {
+        UcenterMember user = ucenterMemberService.getById(userId);
+        UserMemberVo userMemberVo = new UserMemberVo();
+        BeanUtils.copyProperties(user, userMemberVo);
+        return userMemberVo;
     }
 
 }

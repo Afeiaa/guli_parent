@@ -2,6 +2,7 @@ package com.atguigu.eduservice.service;
 
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.frontVo.CourseFrontVo;
+import com.atguigu.eduservice.entity.frontVo.CourseWebVo;
 import com.atguigu.eduservice.entity.vo.CourseInfoVo;
 import com.atguigu.eduservice.entity.vo.CoursePublishVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,4 +25,6 @@ public interface EduCourseService extends IService<EduCourse> {
     HashMap indexCourseList(Page<EduCourse> coursePage, CourseFrontVo courseFrontVo);
 
     HashMap indexCourseInfo(String courseId);
+
+    CourseWebVo getCourseInfoOrder(String courseId);
 }
