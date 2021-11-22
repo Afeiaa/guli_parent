@@ -37,5 +37,17 @@ public class OrderController {
         return R.ok().data("item", orderInfo);
     }
 
+    // 3. edu_service提供接口，查询用户对应课程的订单支付状态
+    @GetMapping("/isBuyCourse/{memberId}/{courseId}")
+    public Boolean isBuyCourse(@PathVariable("memberId") String memberId,
+                               @PathVariable("courseId") String courseId) {
+        QueryWrapper<Order> wrapper = new QueryWrapper<>();
+        wrapper.eq("member_id", memberId);
+        wrapper.eq("course_id", courseId);
+        wrapper.eq("status", 1);
+        int count = orderService.count(wrapper);
+        return count > 0;
+    }
+
 
 }

@@ -6,7 +6,9 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
+import com.atguigu.commonutils.JwtUtils;
 import com.atguigu.commonutils.R;
+import com.atguigu.eduservice.client.OrderClient;
 import com.atguigu.eduservice.client.UcenterClient;
 import com.atguigu.eduservice.entity.EduComment;
 import com.atguigu.eduservice.entity.EduCourse;
@@ -18,9 +20,7 @@ import com.atguigu.eduservice.utils.initVod;
 import com.atguigu.servicebase.exceptionhandler.GuliException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +42,9 @@ public class IndexCourseController {
     @Autowired
     private UcenterClient ucenterClient;
 
+    @Autowired
+    private OrderClient orderClient;
+
 
     // 1. 课程分页
     @PostMapping("/index/{page}/{limit}")
@@ -55,12 +58,16 @@ public class IndexCourseController {
 
     // 2. 课程详细信息
     @GetMapping("/courseInfo/{courseId}")
-    public R getCourseInfo(@PathVariable("courseId") String courseId) {
+    public R getCourseInfo(@PathVariable("courseId") String courseId,
+                           HttpServletRequest request) {
         // 返回课程详情+章节信息
         HashMap map = eduCourseService.indexCourseInfo(courseId);
+        // 查询支付状态
+        Boolean isBuy = orderClient.isBuyCourse(JwtUtils.getMemberIdByJwtToken(request), courseId);
         return R.ok()
                 .data("course", map.get("courseIndexInfo"))
-                .data("chapterVoList", map.get("characterList"));
+                .data("chapterVoList", map.get("characterList"))
+                .data("isBuy", isBuy);
     }
 
     // 3. 播放小节视频
