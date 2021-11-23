@@ -73,4 +73,12 @@ public class UcenterMemberController {
         return userMemberVo;
     }
 
+    // 查询某一天注册人数，给统计提供接口
+    @GetMapping("/registerCount/{day}")
+    public Integer registerCountByDay(@PathVariable("day") String day) {
+        Integer count = ucenterMemberService.registerCountByDay(day);
+        return count;
+    }
+
+
 }

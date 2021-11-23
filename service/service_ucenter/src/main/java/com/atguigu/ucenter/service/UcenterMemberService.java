@@ -10,4 +10,6 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     boolean register(RegisterVo registerVo);
 
     UcenterMember getWxMember(String openId);
+
+    Integer registerCountByDay(String day);
 }
