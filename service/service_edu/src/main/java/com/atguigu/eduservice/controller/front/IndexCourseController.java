@@ -29,8 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
-    @RequestMapping("/eduservice/indexcourse")
+//@CrossOrigin
+@RequestMapping("/eduservice/indexcourse")
 public class IndexCourseController {
 
     @Autowired

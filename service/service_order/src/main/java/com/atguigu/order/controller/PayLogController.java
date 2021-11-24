@@ -11,7 +11,7 @@ import javax.management.Query;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/orderservice/paylog")
 public class PayLogController {
 

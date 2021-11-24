@@ -19,8 +19,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 
 @Controller
-@CrossOrigin
-@RequestMapping("/api/ucenter/wx")
+//@CrossOrigin
+@RequestMapping("/api/educenter/wx")
 public class WxApiController {
 
     @Autowired

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/orderservice/order")
 public class OrderController {
 
